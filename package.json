@@ -12,9 +12,16 @@
     "@oslojs/crypto": "^1.0.1",
     "@oslojs/encoding": "^1.1.0",
     "@prisma/client": "^6.6.0",
+    "@sanity/image-url": "^1.1.0",
+    "@sanity/vision": "^3.86.0",
+    "lucide-react": "^0.503.0",
     "next": "15.3.0",
+    "next-sanity": "^9.10.2",
     "react": "^19.0.0",
-    "react-dom": "^19.0.0"
+    "react-dom": "^19.0.0",
+    "sanity": "^3.86.0",
+    "styled-components": "^6.1.17",
+    "zod": "^3.24.3"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",

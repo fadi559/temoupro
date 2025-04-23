@@ -1,9 +1,12 @@
+import { getCurrentSession } from "@/actions/auth";
 import Image from "next/image";
 
-export default function Home() {
+const Home = async () => {
+  const user = await getCurrentSession();
   return (
-    <div >
-      Home
+    <div className="bg-black">
+      {JSON.stringify(user)}
     </div>
-  );
+  )
 }
+export default Home;
