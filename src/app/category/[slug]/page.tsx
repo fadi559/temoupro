@@ -1,4 +1,4 @@
-import ProductGrid from '@/app/Component/product/productGrid';
+import ProductGrid from '@/app/Component/products/productGrid';
 import SalesCampaignBanner from '@/app/Component/SalesCampaignBanner';
 import { getCategoryBySlug, getProductsByCategorySlug } from '@/sanity/lib/client';
 import React from 'react'

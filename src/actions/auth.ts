@@ -76,7 +76,6 @@ export type SessionValidationResult =
 
 
 
-
 /* cookies*/
 
 export async function setSessionTokenCookie(token: string, expiresAt: Date): Promise<void> {

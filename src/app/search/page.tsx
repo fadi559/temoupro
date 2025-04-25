@@ -1,6 +1,6 @@
 
 import SalesCampaignBanner from '../Component/SalesCampaignBanner';
-import ProductGrid from '../Component/product/productGrid';
+import ProductGrid from '../Component/products/productGrid';
 import { getCategoryBySlug, getProductsByCategorySlug, searchProducts } from '@/sanity/lib/client';
 import React, { use } from 'react';
  
