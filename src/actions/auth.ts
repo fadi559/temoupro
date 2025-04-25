@@ -14,8 +14,6 @@ export async function generateSessionToken(): Promise<string> {
 	const token = encodeBase32LowerCaseNoPadding(bytes);
 	return token;
 }
-
-
 export async function createSession(token: string, userId: number): Promise<Session> {
 	const sessionId = encodeHexLowerCase(sha256(new TextEncoder().encode(token)));
 	const session: Session = {
@@ -28,7 +26,6 @@ export async function createSession(token: string, userId: number): Promise<Sess
 	});
 	return session;
 }
-
 export async function validateSessionToken(token: string): Promise<SessionValidationResult> {
 	const sessionId = encodeHexLowerCase(sha256(new TextEncoder().encode(token)));
 	const result = await prisma.session.findUnique({
@@ -60,11 +57,9 @@ export async function validateSessionToken(token: string): Promise<SessionValida
 	}
 	return { session, user };
 }
-
 export async function invalidateSession(sessionId: string): Promise<void> {
 	await prisma.session.delete({ where: { id: sessionId } });
 }
-
 export async function invalidateAllSessions(userId: number): Promise<void> {
 	await prisma.session.deleteMany({
 		where: {
@@ -94,7 +89,6 @@ export async function setSessionTokenCookie(token: string, expiresAt: Date): Pro
 		path: "/"
 	});
 }
-
 export async function deleteSessionTokenCookie(): Promise<void> {
 	const cookieStore = await cookies();
 	cookieStore.set("session", "", {
@@ -105,7 +99,6 @@ export async function deleteSessionTokenCookie(): Promise<void> {
 		path: "/"
 	});
 }
-
 export const getCurrentSession = cache(async (): Promise<SessionValidationResult> => {
 	const cookieStore = await cookies();
 	const token = cookieStore.get("session")?.value ?? null;
@@ -115,19 +108,15 @@ export const getCurrentSession = cache(async (): Promise<SessionValidationResult
 	const result = await validateSessionToken(token);
 	return result;
 });
-
-
 /* User register, login, logout */
 
 export const hashPassword = async (password: string) => {
     return encodeHexLowerCase(sha256(new TextEncoder().encode(password)));
 }
-
 export const verifyPassword = async (password: string, hash: string) => {
     const passwordHash = await hashPassword(password);
     return passwordHash === hash;
 }
-
 export const registerUser = async (email: string, password: string) => {
     const passwordHash = await hashPassword(password);
     try {
@@ -154,7 +143,6 @@ export const registerUser = async (email: string, password: string) => {
         }
     }
 }
-
 export const loginUser = async (email: string, password: string) => {
     const user = await prisma.user.findUnique({
         where: {
@@ -168,7 +156,6 @@ export const loginUser = async (email: string, password: string) => {
             error: "User not found",
         }
     }
-
     const passwordValid = await verifyPassword(password, user.passwordHash);
     if(!passwordValid) {
         return {
@@ -176,7 +163,6 @@ export const loginUser = async (email: string, password: string) => {
             error: "Invalid password",
         }
     }
-
     const token = await generateSessionToken();
     const session = await createSession(token, user.id);
     await setSessionTokenCookie(token, session.expiresAt);
@@ -185,13 +171,11 @@ export const loginUser = async (email: string, password: string) => {
         ...user,
         passwordHash: undefined,
     };
-
     return {
         user: safeUser,
         error: null,
     }
 }
-
 export const logoutUser = async () => {
     const session = await getCurrentSession();
     if(session.session?.id) {

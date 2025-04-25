@@ -1,6 +1,6 @@
 import { getCurrentSession, loginUser, registerUser } from '@/actions/auth';
-import SignInpage from '@/app/Component/auth/signInPage';
-import SignUpPage44 from '@/app/Component/auth/SignUpPage';
+import SignInpage from '@/app/Component/sign-in-sign-up/signInPage';
+import SignUpPage44 from '@/app/Component/sign-in-sign-up/SignUpPage';
 
 import { redirect } from 'next/navigation';
 import React from 'react';

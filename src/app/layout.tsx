@@ -3,6 +3,9 @@ import { Geist, Geist_Mono, Inter } from "next/font/google";
 import "./globals.css";
 import { getCurrentSession } from "@/actions/auth";
 import Header2 from "./Component/layout/Header";
+import { SanityLive } from "@/sanity/lib/live";
+import type { Cat } from "lucide-react";
+import HeaderCategorySelector from "./Component/layout/HeaderCategorySelector";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -16,13 +19,18 @@ const RootLayout = async ({
 }: Readonly<{
   children: React.ReactNode;
 }>) => {
-  
+
   const {user} = await getCurrentSession();
+  
   return (
     <html lang="en">
        <body className={`${inter.className} antialiased !bg-white min-h-[125vh]`}>
-      <Header2 user={user}/>
+      <Header2 
+      user={user}
+      categorySelector={<HeaderCategorySelector/>}
+      />
         {children}
+        <SanityLive/>
       </body>
     </html>
   );
