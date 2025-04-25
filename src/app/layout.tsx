@@ -6,6 +6,7 @@ import Header2 from "./Component/layout/Header";
 import { SanityLive } from "@/sanity/lib/live";
 import type { Cat } from "lucide-react";
 import HeaderCategorySelector from "./Component/layout/HeaderCategorySelector";
+import Cart from "./Component/cart/Cart";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -30,6 +31,7 @@ const RootLayout = async ({
       categorySelector={<HeaderCategorySelector/>}
       />
         {children}
+        <Cart/>
         <SanityLive/>
       </body>
     </html>

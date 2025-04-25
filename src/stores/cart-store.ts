@@ -2,6 +2,7 @@
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 
+
 export type CartItem = {
     id: string;
     title: string;
@@ -29,8 +30,8 @@ type CartStore = {
 };
 
 export const useCartStore = create<CartStore>()(
-    persist(
-        (set, get) => ({
+    persist  (
+        (set,get) => ({
             items: [],
             isOpen: false,
             isLoaded: false,
@@ -73,6 +74,10 @@ export const useCartStore = create<CartStore>()(
                 if (!cartId) {
                     return;
                 }
+                console.log('Updated items22:', useCartStore.getState().items);
+                console.log('Removing item with id:', id);
+
+
 
                 const updatedCart = await updateCartItem(cartId, id, {
                     quantity: 0,
@@ -83,8 +88,10 @@ export const useCartStore = create<CartStore>()(
                         ...state,
                         cartId: updatedCart.id,
                         items: state.items.filter((item) => item.id !== id)
+                        
                     };
                 });
+
             },
 
             updateQuantity: async (id, quantity) => {

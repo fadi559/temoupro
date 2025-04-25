@@ -1,16 +1,16 @@
 "use server";
 
 import { getCurrentSession } from "@/actions/auth";
+import prisma from "./db";
 import { Product } from "../../sanity.types";
 import { urlFor } from "@/sanity/lib/image";
 import { revalidatePath } from "next/cache";
 import { cookies } from "next/headers";
-import prisma from "./db";
 
 export const createCart = async () => {
     const { user } = await getCurrentSession();
 
-    const cart = await prisma.({
+    const cart = await prisma.cart.create({
         data: {
             id: crypto.randomUUID(),
             user: user ? { connect: { id: user.id } } : undefined,
@@ -25,8 +25,6 @@ export const createCart = async () => {
 
     return cart;
 }
-
-
 
 export const getOrCreateCart = async (cartId?: string | null) => {
     const { user } = await getCurrentSession();
