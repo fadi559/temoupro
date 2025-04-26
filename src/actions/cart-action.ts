@@ -220,16 +220,16 @@ export const syncCartWithUser = async (cartId: string | null) => {
     return getOrCreateCart(existingUserCart.id);
 }
 
-export const addWinningItemToCart = async (cartId: string, product: Product) => {
+// export const addWinningItemToCart = async (cartId: string, product: Product) => {
 
-    const cart = await getOrCreateCart(cartId);
+//     const cart = await getOrCreateCart(cartId);
 
-    const updatedCart = await updateCartItem(cart.id, product._id, {
-        title: `🎁 ${product.title} (Won)`,
-        price: 0,
-        image: product.image ? urlFor(product.image).url() : '',
-        quantity: 1,
-    });
+//     const updatedCart = await updateCartItem(cart.id, product._id, {
+//         title: `🎁 ${product.title} (Won)`,
+//         price: 0,
+//         image: product.image ? urlFor(product.image).url() : '',
+//         quantity: 1,
+//     });
 
-    return updatedCart;
-}
+//     return updatedCart;
+// }
