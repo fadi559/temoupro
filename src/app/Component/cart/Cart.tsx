@@ -1,7 +1,6 @@
 'use client';
 
 import { createCheckoutSession } from '@/actions/stripe-actions';
-//  import { createCheckoutSession } from '@/actions/stripe-actions';
 import { formatPrice } from '@/actions/utils';
 import { useCartStore, type CartItem as CartItemType } from '@/stores/cart-store';
 import { Loader2, ShoppingCart, X } from 'lucide-react';
