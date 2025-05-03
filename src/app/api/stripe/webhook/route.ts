@@ -54,6 +54,7 @@ export async function POST(req: Request) {
         switch(event.type) {
             case 'checkout.session.completed': {
                 const session = event.data.object as Stripe.Checkout.Session;
+                console.log("Processing checkout session:", session.id);
 
                 const cartId = session.metadata?.cartId;
                 const userId = session.metadata?.userId;
