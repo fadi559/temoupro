@@ -39,10 +39,13 @@ export const createCheckoutSession = async (cartId: string) => {
         customer_email: user?.email,
         metadata: {
             cartId: cart.id,
-            userId: user?.id?.toString() || '-'
+            userId: user?.id?.toString() || '-',
+            force_shipping: 'true' 
         },
+        
         shipping_address_collection: {
             allowed_countries: ['US']
+            
         },
         shipping_options: [
             {
