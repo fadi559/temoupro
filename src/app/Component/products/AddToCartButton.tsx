@@ -50,7 +50,7 @@ const AddToCartButton = ({ product }: AddToCartButtonProps) => {
                     currency: 'USD',
                 })
             }
-        } catch(e) {}
+        } catch(error) { console.error("Failed to register user:", error);}
 
         setLoading(false);
         open();

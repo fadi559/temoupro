@@ -1,6 +1,6 @@
 import prisma from "@/actions/db";
  import { umamiTrackCheckoutSuccessEvent } from "@/actions/umami";
-import type { apiVersion } from "@/sanity/env";
+
 import { createClient } from "@sanity/client";
 import { headers } from "next/headers";
 import { NextResponse } from "next/server";
@@ -87,16 +87,16 @@ export async function POST(req: Request) {
                     stripeCheckoutSessionId: session.id,
                     stripePaymentIntentId: session.payment_intent as string,
                     totalPrice: Number(session.amount_total) / 100,
-                    // shippingAddress: {
-                    //     _type: 'shippingAddress',
-                    //     name: session.shipping_details?.name,
-                    //     line1: session.shipping_details?.address?.line1,
-                    //     line2: session.shipping_details?.address?.line2,
-                    //     city: session.shipping_details?.address?.city,
-                    //     state: session.shipping_details?.address?.state,
-                    //     postalCode: session.shipping_details?.address?.postal_code,
-                    //     country: session.shipping_details?.address?.country,
-                    // },
+                    shippingAddress: {
+                        _type: 'shippingAddress',
+                        name: session.shipping_details?.name,
+                        line1: session.shipping_details?.address?.line1,
+                        line2: session.shipping_details?.address?.line2,
+                        city: session.shipping_details?.address?.city,
+                        state: session.shipping_details?.address?.state,
+                        postalCode: session.shipping_details?.address?.postal_code,
+                        country: session.shipping_details?.address?.country,
+                    },
 
                     orderItems: cart.items.map((item) => ({
                         _type: 'orderItem',

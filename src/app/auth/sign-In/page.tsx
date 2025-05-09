@@ -1,6 +1,6 @@
-import { getCurrentSession, loginUser, registerUser } from '@/actions/auth';
+import { getCurrentSession, loginUser, } from '@/actions/auth';
 import SignInpage from '@/app/Component/sign-in-sign-up/signInPage';
-import SignUpPage44 from '@/app/Component/sign-in-sign-up/SignUpPage';
+
 
 import { redirect } from 'next/navigation';
 import React from 'react';
@@ -18,7 +18,7 @@ const SignInPage2 = async () => {
       return redirect('/');
   }
 
-  const action = async (prevState: any, formData: FormData) => {
+  const action = async (prevState: string, formData: FormData) => {
       "use server";
       const parsed = SignInSchema.safeParse(Object.fromEntries(formData));
       if(!parsed.success) {

@@ -135,7 +135,8 @@ export const registerUser = async (email: string, password: string) => {
             user: safeUser,
             error: null,
         }
-    } catch(e) {
+    } catch(error) {
+		console.error("Failed to register user:", error);
         return {
             user: null,
             error: "Failed to register user"
@@ -157,6 +158,7 @@ export const loginUser = async (email: string, password: string) => {
     }
     const passwordValid = await verifyPassword(password, user.passwordHash);
     if(!passwordValid) {
+		
         return {
             user: null,
             error: "Invalid password",
@@ -171,6 +173,8 @@ export const loginUser = async (email: string, password: string) => {
         passwordHash: undefined,
     };
     return {
+
+		
         user: safeUser,
         error: null,
     }

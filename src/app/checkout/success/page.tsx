@@ -1,4 +1,4 @@
-import type { apiVersion } from "@/sanity/env";
+
 import { redirect } from "next/navigation";
 import Stripe from "stripe";
 

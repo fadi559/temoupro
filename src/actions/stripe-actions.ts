@@ -1,6 +1,5 @@
 "use server";
 
-import type { apiVersion } from '@/sanity/env';
 import { getCurrentSession } from './auth';
 import { getOrCreateCart } from './cart-action';
 import Stripe from 'stripe';

@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono, Inter } from "next/font/google";
+import { Inter } from "next/font/google";
 import "./globals.css";
 import { getCurrentSession } from "@/actions/auth";
 import Header2 from "./Component/layout/Header";
 import { SanityLive } from "@/sanity/lib/live";
-import type { Cat } from "lucide-react";
+
 import HeaderCategorySelector from "./Component/layout/HeaderCategorySelector";
 import Cart from "./Component/cart/Cart";
 
