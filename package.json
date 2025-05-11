@@ -4,14 +4,15 @@
   "private": true,
   "scripts": {
     "dev": "next dev --turbopack",
-    "build": "next build",
+    "build": "prisma generate && next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "postinstall": "prisma generate"
   },
   "dependencies": {
     "@oslojs/crypto": "^1.0.1",
     "@oslojs/encoding": "^1.1.0",
-    "@prisma/client": "^6.7.0",
+    "@prisma/client": "6.7.0",
     "@sanity/client": "^7.2.1",
     "@sanity/image-url": "^1.1.0",
     "@sanity/vision": "^3.88.2",
