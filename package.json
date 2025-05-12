@@ -4,18 +4,16 @@
   "private": true,
   "scripts": {
     "dev": "next dev --turbopack",
-    "build": "prisma generate && next build",
+    "build": "next build",
     "start": "next start",
-    "lint": "next lint",
-    "postinstall": "prisma generate"
+    "lint": "next lint"
   },
   "dependencies": {
     "@oslojs/crypto": "^1.0.1",
     "@oslojs/encoding": "^1.1.0",
-    "@prisma/client": "6.7.0",
+    "@prisma/client": "^6.7.0",
     "@sanity/client": "^7.2.1",
     "@sanity/image-url": "^1.1.0",
-    "@sanity/vision": "^3.88.2",
     "@umami/node": "^0.4.0",
     "clsx": "^2.1.1",
     "lucide-react": "^0.503.0",
