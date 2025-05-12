@@ -5,7 +5,7 @@ import { persist } from 'zustand/middleware';
 
 export type CartItem = {
     id: string;
-    title: string;
+    title: string; 
     price: number;
     quantity: number;
     image: string;
@@ -157,7 +157,7 @@ export const useCartStore = create<CartStore>()(
         }),
         {
             name: 'cart-storage',
-            skipHydration: true,
+            // skipHydration: true,
         }
     )
 );
