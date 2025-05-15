@@ -75,9 +75,10 @@ export const updateCartItem = async (
 ) => {
     const cart = await getOrCreateCart(cartId);
 
+    //change this existingItem 
     const existingItem = cart.items.find(
-        (item) => sanityProductId === item.sanityProductId
-    );
+        (item: { sanityProductId: string }) => sanityProductId === item.sanityProductId
+      );
 
     if(existingItem) {
         // Update quantity
