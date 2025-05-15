@@ -2787,9 +2787,9 @@
     "@types/uuid" "^8.0.0"
     uuid "^8.0.0"
 
-"@sanity/vision@^3.88.2":
+"@sanity/vision@3.88.2":
   version "3.88.2"
-  resolved "https://registry.npmjs.org/@sanity/vision/-/vision-3.88.2.tgz"
+  resolved "https://registry.yarnpkg.com/@sanity/vision/-/vision-3.88.2.tgz#dbcc9ca14ac86973d17fa717e33856b44f56232c"
   integrity sha512-6fCNJGSKoAyfVoFSjvsdv+4fnqCGSxwF+lUU989D/trHh4/EufXsZrlV6SvAuEBjC3/MRSjbqIgaTqJ3ualz2g==
   dependencies:
     "@codemirror/autocomplete" "^6.1.0"
