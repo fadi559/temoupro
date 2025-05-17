@@ -69,30 +69,46 @@ export const useCartStore = create<CartStore>()(
                 });
             },
 
-            removeItem: async (id) => {
-                const { cartId } = get();
-                if (!cartId) {
-                    return;
-                }
-                console.log('Updated items22:', useCartStore.getState().items);
-                console.log('Removing item with id:', id);
+            removeItem: async (id: string) => {
+  set((state) => ({
+    items: state.items.filter((item) => item.id !== id),
+  }));
+
+  const cartId = get().cartId;
+  if (!cartId) return;
+
+  // Find the item to get the `sanityProductId` if needed
+  const item = get().items.find((item) => item.id === id);
+  if (!item) return;
+
+  // Call the backend to remove the item
+  await updateCartItem(cartId, item.id, { quantity: 0 });
+},
+
+            // removeItem: async (id) => {
+            //     const { cartId } = get();
+            //     if (!cartId) {
+            //         return;
+            //     }
+            //     console.log('Updated items22:', useCartStore.getState().items);
+            //     console.log('Removing item with id:', id);
 
 
 
-                const updatedCart = await updateCartItem(cartId, id, {
-                    quantity: 0,
-                });
+            //     const updatedCart = await updateCartItem(cartId, id, {
+            //         quantity: 0,
+            //     });
 
-                set((state) => {
-                    return {
-                        ...state,
-                        cartId: updatedCart.id,
-                        items: state.items.filter((item) => item.id !== id)
+            //     set((state) => {
+            //         return {
+            //             ...state,
+            //             cartId: updatedCart.id,
+            //             items: state.items.filter((item) => item.id !== id)
                         
-                    };
-                });
+            //         };
+            //     });
 
-            },
+            // },
 
             updateQuantity: async (id, quantity) => {
                 const { cartId } = get();

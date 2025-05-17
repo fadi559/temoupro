@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useActionState } from 'react';
-import Form from 'next/form';
+
 import { Loader2 } from 'lucide-react';
 
 const initialState = {
@@ -16,7 +16,7 @@ const SignInpage = ({ action }: SignInProps) => {
     const [state, formAction, isPending] = useActionState(action, initialState);
 
     return (
-        <Form
+        <form
         action={formAction}
         className="max-w-md mx-auto my-16 p-8 bg-white rounded-2xl shadow-lg border border-gray-100"
       >
@@ -88,7 +88,7 @@ const SignInpage = ({ action }: SignInProps) => {
             <p className="text-center text-sm text-red-600">{state.message}</p>
           )}
         </div>
-      </Form>
+      </form>
       
     );
 };

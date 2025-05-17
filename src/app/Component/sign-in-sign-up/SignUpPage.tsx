@@ -1,7 +1,8 @@
 'use client';
 
 import React, { useActionState } from 'react';
-import Form from 'next/form';
+
+
 import { Loader2 } from 'lucide-react';
 
 const initialState = {
@@ -16,7 +17,7 @@ const SignUpPage44 = ({ action }: SignUpProps) => {
     const [state, formAction, isPending] = useActionState(action, initialState);
 
     return (
-        <Form action={formAction} className='max-w-md mx-auto my-16 p-8 bg-white rounded-lg shadow-md '>
+        <form action={formAction} className='max-w-md mx-auto my-16 p-8 bg-white rounded-lg shadow-md '>
             <h1 className='text-2xl font-bold text-center mb-2 text-black'>Join the DEAL Revolution!</h1>
             <p className='text-center text-sm text-rose-600 font-semibold mb-2'>🔥 LIMITED TIME OFFER 🔥</p>
             <p className='text-center text-sm text-gray-600 mb-6'>Sign up now and get 90% OFF your first order!</p>
@@ -82,7 +83,7 @@ const SignUpPage44 = ({ action }: SignUpProps) => {
                     </p>
                 )}
             </div>
-        </Form>
+        </form>
     );
 };
 

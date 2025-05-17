@@ -2178,10 +2178,10 @@
   resolved "https://registry.npmjs.org/@portabletext/types/-/types-2.0.13.tgz"
   integrity sha512-5xk5MSyQU9CrDho3Rsguj38jhijhD36Mk8S6mZo3huv6PM+t4M/5kJN2KFIxgvt4ONpvOEs1pVIZAV0cL0Vi+Q==
 
-"@prisma/client@6.7.0":
-  version "6.7.0"
-  resolved "https://registry.npmjs.org/@prisma/client/-/client-6.7.0.tgz"
-  integrity sha512-+k61zZn1XHjbZul8q6TdQLpuI/cvyfil87zqK2zpreNIXyXtpUv3+H/oM69hcsFcZXaokHJIzPAt5Z8C8eK2QA==
+"@prisma/client@5.22.0":
+  version "5.22.0"
+  resolved "https://registry.npmjs.org/@prisma/client/-/client-5.22.0.tgz#da1ca9c133fbefe89e0da781c75e1c59da5f8802"
+  integrity sha512-M0SVXfyHnQREBKxCgyo7sffrKttwE6R8PMq330MIUF0pTwjUhLbW84pFDlf06B27XyCR++VtjugEnIHdr07SVA==
 
 "@prisma/config@6.7.0":
   version "6.7.0"
