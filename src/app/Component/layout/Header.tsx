@@ -103,39 +103,48 @@ useEffect(()=>{
           </div>
         <div className="flex items-center gap-4 sm:gap-6 ml-auto">
             <HeaderSearchBar/>
-            <button onClick={()=>open()} className="text-gray-700 hover:text-gray-900 relative">
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 sm:h-6 sm:w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
-              </svg>
-              <span className="absolute -top-1 -right-1 bg-black text-white text-xs rounded-full h-4 w-4 flex items-center justify-center">
-                {getTotalItems()}
-              </span>
-            </button>
-            {user ? (
+        
+          {user ? (
                 <div className='flex items-center gap-2 sm:gap-4'>
                   <span className='text-sm text-gray-700 hidden md:block'>{user.email}</span>
-                  <Link
-                    href='#'
-                    className='text-xs sm:text-sm font-medium text-gray-700 hover:text-gray-900'
-                    onClick={async (e) => {
-                      e.preventDefault();
-                      await logoutUser();
-                      router.refresh();
-                    }}
-                  >
-                    Sign Out
-                  </Link>
-                </div>
-            ) : (
-                <React.Fragment>
-                  <Link href='/auth/sign-In' className='text-xs sm:text-sm font-medium text-gray-700 hover:text-gray-900'>
-                    Sign In
-                  </Link>
-                  <Link href='/auth/sign-up' className='text-xs sm:text-sm font-medium text-gray-700 hover:text-gray-900'>
-                    Sign Up
-                  </Link>
-                </React.Fragment>
-            )}
+                        <Link
+                                    href='#'
+                                     className='text-xs sm:text-sm font-medium text-gray-700 hover:text-gray-900'
+                             onClick={async (e) => {
+                                            e.preventDefault();
+                                            await logoutUser();
+                                            router.refresh();
+                                        }}
+                                    >
+                                        Sign Out
+                                    </Link>
+                                </div>
+                            ) : (
+                                <React.Fragment>
+                                    <Link href='/auth/sign-In' className='text-xs sm:text-sm font-medium text-gray-700 hover:text-gray-900'>
+                                        Sign In
+                                    </Link>
+                                    <Link href='/auth/sign-up' className='text-xs sm:text-sm font-medium text-gray-700 hover:text-gray-900'>
+                                        Sign Up
+                               </Link>
+                              
+              </React.Fragment>
+              
+              )}
+              
+
+          {/* <Link href="auth/sign-in" className="text-black hover:text-gray-700 hidden sm:block">Sign In</Link>
+          <Link href="auth/sign-up" className="text-black hover:text-gray-700 hidden sm:block">Sign Up</Link> */}
+
+ <button onClick={()=>open()} className="text-gray-700 hover:text-gray-900 relative">
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 sm:h-6 sm:w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
+            </svg>
+            <span className="absolute -top-1 -right-1 bg-black text-white text-xs rounded-full h-4 w-4 flex items-center justify-center">
+            {getTotalItems()}
+                </span>
+          </button>
+          
         </div>
       </div>
     </div>
