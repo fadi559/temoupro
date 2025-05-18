@@ -215,6 +215,7 @@ export const syncCartWithUser = async (cartId: string | null) => {
     await prisma.cart.delete({
         where: {
             id: cartId
+            
         }
     });
 
