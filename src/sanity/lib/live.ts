@@ -4,14 +4,14 @@
 import { defineLive } from "next-sanity";
 import { client } from './client'
 
- const token =process.env.SANITY_API_READ_TOKEN;
+const token = process.env.SANITY_API_READ_TOKEN;
 
- if(!token) {
+if (!token) {
   throw new Error("SANITY_API_READ_TOKEN is not set");
 }
 
 export const { sanityFetch, SanityLive } = defineLive({
-  client,
+  client: client as any, // Type assertion to resolve the version mismatch
   serverToken: token,
   browserToken: token,
 })
