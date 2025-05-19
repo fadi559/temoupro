@@ -1,8 +1,3 @@
-
-
-
-
-
 import { Product } from '../../../../sanity.types';
 import { urlFor } from '@/sanity/lib/image';
 import Image from 'next/image';
@@ -39,7 +34,7 @@ const ProductItem22 = ({ product }: ProductItemProps) => {
                     <span className='text-sm text-gray-400 line-through'>${((product.price || 0) * 5).toFixed(2)}</span>
                 </div>
                 <div className='text-xs text-green-500 font-semibold mb-2'>
-                    🔥 {100 + Math.abs(product._id.split("").reduce((acc, char) => acc + char.charCodeAt(0), 0) % 500)}+ sold in last 24h
+                       🔥 {100 + Math.abs(product._id.split("").reduce((acc, char) => acc + char.charCodeAt(0), 0) % 500)}+ sold in last 24h
                 </div>
                 <Link 
                     href={`/product/${product._id}`}
