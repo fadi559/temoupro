@@ -8,6 +8,7 @@ export type CartItem = {
     price: number;
     quantity: number;
     image: string;
+   sanityProductId?: string; // Add this line new delete it 
 };
 
 type CartStore = {

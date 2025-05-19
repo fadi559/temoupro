@@ -6,6 +6,7 @@ import { Product } from "../../sanity.types";
 import { urlFor } from "@/sanity/lib/image";
 import { revalidatePath } from "next/cache";
 import { cookies } from "next/headers";
+import type { CartItem } from "@/stores/cart-store";
 
 export const createCart = async () => {
     const { user } = await getCurrentSession();
@@ -77,8 +78,8 @@ export const updateCartItem = async (
     const cart = await getOrCreateCart(cartId);
 
     const existingItem = cart.items.find(
-        (item) => sanityProductId === item.sanityProductId
-    );
+  (item: CartItem) => sanityProductId === item.sanityProductId
+);
 
     if(existingItem) {
         // Update quantity
