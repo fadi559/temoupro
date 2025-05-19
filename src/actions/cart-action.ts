@@ -182,35 +182,32 @@ export const syncCartWithUser = async (cartId: string | null) => {
         return existingUserCart;
     }
 
-    for(const item of existingAnonymousCart.items) {
-        const existingItem = existingUserCart.items.find((item) => item.sanityProductId === item.sanityProductId);
+    for (const anonItem of existingAnonymousCart.items) {
+  const existingItem = existingUserCart.items.find(
+    (userItem: CartItem) => userItem.sanityProductId === anonItem.sanityProductId
+  );
 
-        if(existingItem) {
-            // add two cart quantities together
-            await prisma.cartLineItem.update({
-                where: {
-                    id: existingItem.id
-                },
-                data: {
-                    quantity: existingItem.quantity + item.quantity
-                }
-            })
-        } else {
-            // add non-existing item to the user's cart
-            await prisma.cartLineItem.create({
-                data: {
-                    id: crypto.randomUUID(),
-                    cartId: existingUserCart.id,
-                    sanityProductId: item.sanityProductId,
-                    quantity: item.quantity,
-                    title: item.title,
-                    price: item.price,
-                    image: item.image
-                }
-            })
-        }
-    }
-
+  if (existingItem) {
+    await prisma.cartLineItem.update({
+      where: { id: existingItem.id },
+      data: {
+        quantity: existingItem.quantity + anonItem.quantity,
+      },
+    });
+  } else {
+    await prisma.cartLineItem.create({
+      data: {
+        id: crypto.randomUUID(),
+        cartId: existingUserCart.id,
+        sanityProductId: anonItem.sanityProductId,
+        quantity: anonItem.quantity,
+        title: anonItem.title,
+        price: anonItem.price,
+        image: anonItem.image,
+      },
+    });
+  }
+}
     await prisma.cart.delete({
         where: {
             id: cartId
