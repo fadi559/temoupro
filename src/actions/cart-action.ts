@@ -2,9 +2,10 @@
 
 import { getCurrentSession } from "@/actions/auth";
 import prisma from "./db";
-
+import { Product } from "../../sanity.types";
+import { urlFor } from "@/sanity/lib/image";
 import { revalidatePath } from "next/cache";
-
+import { cookies } from "next/headers";
 
 export const createCart = async () => {
     const { user } = await getCurrentSession();
@@ -75,10 +76,9 @@ export const updateCartItem = async (
 ) => {
     const cart = await getOrCreateCart(cartId);
 
-    //change this existingItem 
     const existingItem = cart.items.find(
-        (item: { sanityProductId: string }) => sanityProductId === item.sanityProductId
-      );
+        (item) => sanityProductId === item.sanityProductId
+    );
 
     if(existingItem) {
         // Update quantity
@@ -115,7 +115,6 @@ export const updateCartItem = async (
     revalidatePath("/");
     return getOrCreateCart(cartId);
 }
-
 
 export const syncCartWithUser = async (cartId: string | null) => {
     const { user } = await getCurrentSession();
@@ -183,8 +182,7 @@ export const syncCartWithUser = async (cartId: string | null) => {
     }
 
     for(const item of existingAnonymousCart.items) {
-        const existingItem = existingUserCart.items.find((userItem: { sanityProductId: string }) => userItem.sanityProductId === item.sanityProductId
-    );
+        const existingItem = existingUserCart.items.find((item) => item.sanityProductId === item.sanityProductId);
 
         if(existingItem) {
             // add two cart quantities together
@@ -215,7 +213,6 @@ export const syncCartWithUser = async (cartId: string | null) => {
     await prisma.cart.delete({
         where: {
             id: cartId
-            
         }
     });
 

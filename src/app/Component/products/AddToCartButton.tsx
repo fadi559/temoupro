@@ -12,7 +12,7 @@ type AddToCartButtonProps = {
 }
 const AddToCartButton = ({ product }: AddToCartButtonProps) => {
     const { cartId, addItem, open } = useCartStore(
-       
+        useShallow((state) => ({
             cartId: state.cartId,
             addItem: state.addItem,
             open: state.open,
