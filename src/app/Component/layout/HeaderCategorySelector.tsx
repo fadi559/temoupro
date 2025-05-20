@@ -24,8 +24,10 @@ const HeaderCategorySelector = () => {
             setError(null);
             try {
                 const cats = await getAllCategories();
+                console.log('Fetched categories:', cats); // Debug log
                 setCategories(cats);
             } catch (err) {
+                console.error('Error fetching categories:', err); // Debug log
                 setError('Failed to load categories.');
             } finally {
                 setIsLoading(false);
@@ -85,16 +87,20 @@ const HeaderCategorySelector = () => {
                                         Home
                                     </div>
                                 </Link>
-                                {categories.map((category) => (
-                                    <Link
-                                        key={category._id}
-                                        href={`/category/${category.slug?.current}`}
-                                        className='block px-4 py-3 text-sm text-gray-700 hover:bg-gray-50 hover:text-gray-900 bg-white transition-colors'
-                                        onClick={() => setIsOpen(false)}
-                                    >
-                                        {category.title ?? 'No Title'}
-                                    </Link>
-                                ))}
+                                {categories && categories.length > 0 ? (
+                                    categories.map((category) => (
+                                        <Link
+                                            key={category._id}
+                                            href={`/category/${category.slug?.current}`}
+                                            className='block px-4 py-3 text-sm text-gray-700 hover:bg-gray-50 hover:text-gray-900 bg-white transition-colors'
+                                            onClick={() => setIsOpen(false)}
+                                        >
+                                            {category.title ?? 'No Title'}
+                                        </Link>
+                                    ))
+                                ) : (
+                                    <div className='px-4 py-3 text-sm text-gray-500'>No categories found</div>
+                                )}
                             </>
                         )}
                     </div>
