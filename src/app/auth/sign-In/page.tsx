@@ -13,6 +13,7 @@ const SignInPage = async () => {
   const { user } = await getCurrentSession();
 
   if (user) {
+
       return redirect('/');
   }
 
@@ -32,7 +33,7 @@ const SignInPage = async () => {
           return redirect("/");
       }
   }
-  return <SignInpage22 action={action} />;
+  return <SignInpage22 action={action} />
 };
 
 export default SignInPage; 
