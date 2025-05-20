@@ -26,3 +26,41 @@ body {
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
+
+/* Add these styles */
+@media (max-width: 640px) {
+    .container {
+        padding-left: 1rem;
+        padding-right: 1rem;
+    }
+}
+
+/* Ensure the header is always visible on mobile */
+header {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: white;
+}
+
+/* Improve touch targets on mobile */
+button, 
+a {
+    min-height: 44px;
+    min-width: 44px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Improve mobile menu visibility */
+.mobile-menu {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: white;
+    z-index: 100;
+    padding: 1rem;
+}
