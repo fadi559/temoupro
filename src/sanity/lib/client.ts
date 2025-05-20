@@ -16,9 +16,14 @@ export const getAllProducts = async () => {
 }
 
 export const getAllCategories = async () => {
-  const query = `*[_type == "productCategory"]`
-  const categories = await client.fetch(query)
-  return categories as ProductCategory[];
+  const query = `*[_type == "productCategory"]`;
+  try {
+    const categories = await client.fetch(query, {}, { cache: 'no-store' });
+    return categories as ProductCategory[];
+  } catch (error) {
+    console.error('Error fetching categories:', error);
+    return [];
+  }
 }
 
 export const getCategoryBySlug = async (slug: string) => {

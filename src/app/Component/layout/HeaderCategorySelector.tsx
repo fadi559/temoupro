@@ -15,11 +15,21 @@ interface Category {
 const HeaderCategorySelector = () => {
     const [isOpen, setIsOpen] = useState(false);
     const [categories, setCategories] = useState<Category[]>([]);
+    const [isLoading, setIsLoading] = useState(false);
+    const [error, setError] = useState<string | null>(null);
 
     React.useEffect(() => {
         const fetchCategories = async () => {
-            const cats = await getAllCategories();
-            setCategories(cats);
+            setIsLoading(true);
+            setError(null);
+            try {
+                const cats = await getAllCategories();
+                setCategories(cats);
+            } catch (err) {
+                setError('Failed to load categories.');
+            } finally {
+                setIsLoading(false);
+            }
         };
         fetchCategories();
     }, []);
@@ -54,29 +64,39 @@ const HeaderCategorySelector = () => {
             {isOpen && (
                 <div className='absolute top-full left-0 mt-2 w-56 bg-white rounded-xl shadow-lg border border-gray-100 z-[100] animate-fadeIn'>
                     <div className='py-2 max-h-[60vh] overflow-y-auto bg-white rounded-xl'>
-                        <Link
-                            href='/'
-                            className='block px-4 py-3 text-sm font-medium text-gray-900 hover:bg-gray-50 bg-white transition-colors border-b border-gray-100'
-                            onClick={handleHomeClick}
-                        >
-                            <div className='flex items-center gap-2'>
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                                    <path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
-                                    <polyline points="9 22 9 12 15 12 15 22"/>
-                                </svg>
-                                Home
-                            </div>
-                        </Link>
-                        {categories.map((category) => (
-                            <Link
-                                key={category._id}
-                                href={`/category/${category.slug?.current}`}
-                                className='block px-4 py-3 text-sm text-gray-700 hover:bg-gray-50 hover:text-gray-900 bg-white transition-colors'
-                                onClick={() => setIsOpen(false)}
-                            >
-                                {category.title ?? 'No Title'}
-                            </Link>
-                        ))}
+                        {isLoading && (
+                            <div className='px-4 py-3 text-sm text-gray-500'>Loading categories...</div>
+                        )}
+                        {error && (
+                            <div className='px-4 py-3 text-sm text-red-500'>{error}</div>
+                        )}
+                        {!isLoading && !error && (
+                            <>
+                                <Link
+                                    href='/'
+                                    className='block px-4 py-3 text-sm font-medium text-gray-900 hover:bg-gray-50 bg-white transition-colors border-b border-gray-100'
+                                    onClick={handleHomeClick}
+                                >
+                                    <div className='flex items-center gap-2'>
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                            <path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+                                            <polyline points="9 22 9 12 15 12 15 22"/>
+                                        </svg>
+                                        Home
+                                    </div>
+                                </Link>
+                                {categories.map((category) => (
+                                    <Link
+                                        key={category._id}
+                                        href={`/category/${category.slug?.current}`}
+                                        className='block px-4 py-3 text-sm text-gray-700 hover:bg-gray-50 hover:text-gray-900 bg-white transition-colors'
+                                        onClick={() => setIsOpen(false)}
+                                    >
+                                        {category.title ?? 'No Title'}
+                                    </Link>
+                                ))}
+                            </>
+                        )}
                     </div>
                 </div>
             )}
