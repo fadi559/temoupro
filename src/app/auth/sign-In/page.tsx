@@ -1,6 +1,5 @@
-import { getCurrentSession, loginUser, } from '@/actions/auth';
+import { getCurrentSession, loginUser } from '@/actions/auth';
 import SignInpage from '@/app/Component/sign-in-sign-up/signInPage';
-
 import { redirect } from 'next/navigation';
 import React from 'react';
 import zod from 'zod';
@@ -36,4 +35,4 @@ const SignInPage = async () => {
   return <SignInpage action={action}/>;
 };
 
-export default SignInPage;
+export default SignInPage; 

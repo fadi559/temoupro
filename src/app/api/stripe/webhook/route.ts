@@ -125,6 +125,12 @@ export async function POST(req: Request) {
                 break;
             }
 
+            case 'checkout.session.expired': {
+                // Do nothing for expired sessions - keep the cart
+                console.log("Checkout session expired:", event.data.object.id);
+                break;
+            }
+
             default: {
                 console.log(`Unhandled event type: ${event.type}`);
                 break;
