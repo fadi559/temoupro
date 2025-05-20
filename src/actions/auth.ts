@@ -86,7 +86,7 @@ export async function setSessionTokenCookie(token: string, expiresAt: Date): Pro
 		sameSite: "lax",
 		secure: process.env.NODE_ENV === "production",
 		expires: expiresAt,
-		path: "/"
+		path: "/",
 	});
 }
 export async function deleteSessionTokenCookie(): Promise<void> {
@@ -96,7 +96,7 @@ export async function deleteSessionTokenCookie(): Promise<void> {
 		sameSite: "lax",
 		secure: process.env.NODE_ENV === "production",
 		maxAge: 0,
-		path: "/"
+		path: "/",
 	});
 }
 export const getCurrentSession = cache(async (): Promise<SessionValidationResult> => {

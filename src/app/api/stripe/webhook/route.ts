@@ -76,48 +76,52 @@ export async function POST(req: Request) {
                     throw new Error("Cart not found");
                 }
 
-                const order = await sanityClient.create({
-                    _type: 'order',
-                    orderNumber: session.id.slice(-8).toUpperCase(),
-                    orderDate: new Date().toISOString(),
-                    customerId: userId !== '-' ? userId : undefined,
-                    customerEmail: session.customer_details?.email,
-                    customerName: session.customer_details?.name,
-                    stripeCustomerId: typeof session.customer === 'object' ? session.customer?.id || '' : session.customer,
-                    stripeCheckoutSessionId: session.id,
-                    stripePaymentIntentId: session.payment_intent as string,
-                    totalPrice: Number(session.amount_total) / 100,
-                    orderItems: cart.items.map((item) => ({
-                        _type: 'orderItem',
-                        _key: item.id,
-                        product: {
-                            _type: 'reference',
-                            _ref: item.sanityProductId,
-                        },
-                        quantity: item.quantity,
-                        price: item.price
-                    })),
-                    status: 'PROCESSING',
-                });
-
-                try {
-                    await umamiTrackCheckoutSuccessEvent({
-                        cartId: cartId,
-                        email: order.customerEmail || '-',
-                        orderId: order.orderNumber,
-                        orderTotal: order.totalPrice,
-                        orderCurrency: 'USD',
+                // Only proceed if payment was successful
+                if (session.payment_status === 'paid') {
+                    const order = await sanityClient.create({
+                        _type: 'order',
+                        orderNumber: session.id.slice(-8).toUpperCase(),
+                        orderDate: new Date().toISOString(),
+                        customerId: userId !== '-' ? userId : undefined,
+                        customerEmail: session.customer_details?.email,
+                        customerName: session.customer_details?.name,
+                        stripeCustomerId: typeof session.customer === 'object' ? session.customer?.id || '' : session.customer,
+                        stripeCheckoutSessionId: session.id,
+                        stripePaymentIntentId: session.payment_intent as string,
+                        totalPrice: Number(session.amount_total) / 100,
+                        orderItems: cart.items.map((item) => ({
+                            _type: 'orderItem',
+                            _key: item.id,
+                            product: {
+                                _type: 'reference',
+                                _ref: item.sanityProductId,
+                            },
+                            quantity: item.quantity,
+                            price: item.price
+                        })),
+                        status: 'PROCESSING',
                     });
-                } catch(e) {
-                    console.log("Umami tracking error");
-                    console.log(e);
-                }
 
-                await prisma.cart.delete({
-                    where: {
-                        id: cartId
+                    try {
+                        await umamiTrackCheckoutSuccessEvent({
+                            cartId: cartId,
+                            email: order.customerEmail || '-',
+                            orderId: order.orderNumber,
+                            orderTotal: order.totalPrice,
+                            orderCurrency: 'USD',
+                        });
+                    } catch(e) {
+                        console.log("Umami tracking error");
+                        console.log(e);
                     }
-                });
+
+                    // Only delete the cart after successful payment
+                    await prisma.cart.delete({
+                        where: {
+                            id: cartId
+                        }
+                    });
+                }
                 break;
             }
 

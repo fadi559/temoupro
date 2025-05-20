@@ -1,6 +1,7 @@
 import { getCurrentSession, loginUser, } from '@/actions/auth';
 import SignInpage from '@/app/Component/sign-in-sign-up/signInPage';
 
+
 import { redirect } from 'next/navigation';
 import React from 'react';
 import zod from 'zod';
@@ -10,7 +11,7 @@ const SignInSchema = zod.object({
   password: zod.string().min(5),
 })
 
-const SignInPage = async () => {
+const SignInPage2 = async () => {
   const { user } = await getCurrentSession();
 
   if (user) {
@@ -30,10 +31,10 @@ const SignInPage = async () => {
       if(error) {
           return { message: error };
       } else if(user) {
+       
           return redirect("/");
       }
   }
   return <SignInpage action={action}/>;
 };
-
-export default SignInPage;
+export default SignInPage2 ;
