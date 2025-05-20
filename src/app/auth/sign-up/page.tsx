@@ -34,7 +34,7 @@ const SignUpPage = async () => {
       }
   }
 
-  return <SignUpPage44 action={action} />;
+  return <SignUpPage44 action={action} />
 };
 
 export default SignUpPage ;

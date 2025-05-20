@@ -33,7 +33,7 @@ const SignInPage = async () => {
         }
     }
 
-    return <SignInpage22 action={action} />;
+    return <SignInpage22 action={action} />
 };
 
 export default SignInPage;
