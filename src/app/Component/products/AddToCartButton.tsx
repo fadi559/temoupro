@@ -5,18 +5,19 @@ import { urlFor } from '@/sanity/lib/image';
 import { useCartStore } from '@/stores/cart-store';
 import { Loader2 } from 'lucide-react'
 import React, { useState } from 'react'
-import { useShallow } from 'zustand/shallow'
+import { shallow } from 'zustand/shallow'
 
 type AddToCartButtonProps = {
     product: Product
 }
 const AddToCartButton = ({ product }: AddToCartButtonProps) => {
     const { cartId, addItem, open } = useCartStore(
-        useShallow((state) => ({
+        (state) => ({
             cartId: state.cartId,
             addItem: state.addItem,
             open: state.open,
-        }))
+        }),
+        shallow
     )
 
     const [isLoading, setLoading] = useState(false);

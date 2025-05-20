@@ -6,7 +6,7 @@ import { User } from '@prisma/client';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import React, { useEffect, useState } from 'react';
-import { useShallow } from 'zustand/shallow';
+import { shallow } from 'zustand/shallow';
 
 const AnnouncementBar = () => {
     return (
@@ -30,11 +30,12 @@ const Header2 = ({ user, categorySelector }: HeaderProps) => {
     const [prevScrollY, setPrevScrollY] = useState<number>(0);
 
     const { open, getTotalItems, setLoaded } = useCartStore(
-        useShallow((state) => ({
+        (state) => ({
             open: state.open,
             getTotalItems: state.getTotalItems,
             setLoaded: state.setLoaded
-        }))
+        }),
+        shallow
     );
 
     useEffect(() => {

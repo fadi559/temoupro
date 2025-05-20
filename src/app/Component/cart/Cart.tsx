@@ -7,7 +7,7 @@ import { Loader2, ShoppingCart, X } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
 import React, { useEffect, useMemo, useState } from 'react';
-import { useShallow } from 'zustand/shallow';
+import { shallow } from 'zustand/shallow';
 
 
 const freeShippingAmount = 50;
@@ -25,7 +25,7 @@ const Cart = () => {
     getTotalPrice,
     getTotalItems,
   } = useCartStore(
-    useShallow((state) => ({
+    (state) => ({
       cartId: state.cartId,
       items: state.items,
       removeItem: state.removeItem,
@@ -36,7 +36,8 @@ const Cart = () => {
       setLoaded: state.setLoaded,
       getTotalPrice: state.getTotalPrice,
       getTotalItems: state.getTotalItems,
-    }))
+    }),
+    shallow
   );
 
   useEffect(() => {

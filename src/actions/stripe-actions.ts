@@ -5,7 +5,7 @@ import { getOrCreateCart } from './cart-action';
 import Stripe from 'stripe';
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
-    apiVersion:'2025-04-30.basil'
+    apiVersion: '2023-10-16'
 });
 
 export const createCheckoutSession = async (cartId: string) => {
@@ -27,7 +27,7 @@ export const createCheckoutSession = async (cartId: string) => {
                 currency: 'usd',
                 product_data: {
                     name: item.title,
-                    images: [item.image]
+                    images: item.image ? [item.image] : []
                 },
                 unit_amount: Math.round(item.price * 100)
             },

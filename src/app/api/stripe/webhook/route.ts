@@ -1,5 +1,5 @@
 import prisma from "@/actions/db";
- import { umamiTrackCheckoutSuccessEvent } from "@/actions/umami";
+import { umamiTrackCheckoutSuccessEvent } from "@/actions/umami";
 
 import { createClient } from "@sanity/client";
 import { headers } from "next/headers";
@@ -9,7 +9,7 @@ import Stripe from "stripe";
 export async function POST(req: Request) {
     // Get Stripe client
     const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
-        apiVersion: '2025-04-30.basil', 
+        apiVersion: '2023-10-16', 
     });
 
     const webhookSecret = process.env.STRIPE_WEBHOOK_SECRET!;
@@ -87,17 +87,6 @@ export async function POST(req: Request) {
                     stripeCheckoutSessionId: session.id,
                     stripePaymentIntentId: session.payment_intent as string,
                     totalPrice: Number(session.amount_total) / 100,
-                    // shippingAddress: {
-                    //     _type: 'shippingAddress',
-                    //     name: session.shipping_details?.name,
-                    //     line1: session.shipping_details?.address?.line1,
-                    //     line2: session.shipping_details?.address?.line2,
-                    //     city: session.shipping_details?.address?.city,
-                    //     state: session.shipping_details?.address?.state,
-                    //     postalCode: session.shipping_details?.address?.postal_code,
-                    //     country: session.shipping_details?.address?.country,
-                    // },
-
                     orderItems: cart.items.map((item) => ({
                         _type: 'orderItem',
                         _key: item.id,
