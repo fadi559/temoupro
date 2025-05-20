@@ -1,39 +1,39 @@
-import { getCurrentSession, loginUser } from '@/actions/auth';
-import SignInpage22 from '@/app/Component/sign-in-sign-up/SignInPage';
+import { getCurrentSession,loginUser } from '@/actions/auth';
+import SignInpage22 from '@/app/Component/auth/SignInPage';
 import { redirect } from 'next/navigation';
-import React from 'react';
 import zod from 'zod';
 
 const SignInSchema = zod.object({
-  email: zod.string().email(),
-  password: zod.string().min(5),
+    email: zod.string().email(),
+    password: zod.string().min(5),
 })
 
 const SignInPage = async () => {
-  const { user } = await getCurrentSession();
+    const { user } = await getCurrentSession();
 
-  if (user) {
+    if (user) {
+        return redirect('/');
+    }
 
-      return redirect('/');
-  }
+    const action = async (prevState: any, formData: FormData) => {
+        "use server";
+        const parsed = SignInSchema.safeParse(Object.fromEntries(formData));
+        if(!parsed.success) {
+            return {
+                message: "Invalid form data",
+            };
+        }
 
-  const action = async (prevState: string, formData: FormData) => {
-      "use server";
-      const parsed = SignInSchema.safeParse(Object.fromEntries(formData));
-      if(!parsed.success) {
-          return {
-              message: "Invalid form data",
-          };
-      }
-      const { email, password } = parsed.data;
-      const { user, error } = await loginUser(email, password);
-      if(error) {
-          return { message: error };
-      } else if(user) {
-          return redirect("/");
-      }
-  }
-  return <SignInpage22 action={action} />
+        const { email, password } = parsed.data;
+        const { user, error } = await loginUser(email, password);
+        if(error) {
+            return { message: error };
+        } else if(user) {
+            return redirect("/");
+        }
+    }
+
+    return <SignInpage22 action={action} />;
 };
 
-export default SignInPage; 
+export default SignInPage;

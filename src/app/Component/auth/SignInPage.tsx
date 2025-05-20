@@ -11,7 +11,7 @@ type SignInProps = {
     action: (prevState: any, formData: FormData) => Promise<{ message: string } | undefined>;
 };
 
-const SignInpage22 = ({ action }: SignInProps) => {
+const SignInPage22 = ({ action }: SignInProps) => {
     
     const [state, setState] = useState(initialState);
     const [isPending, setIsPending] = useState(false);
@@ -107,4 +107,4 @@ const SignInpage22 = ({ action }: SignInProps) => {
     );
 };
 
-export default SignInpage22;
+export default SignInPage22;
