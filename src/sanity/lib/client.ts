@@ -2,18 +2,11 @@ import { createClient } from 'next-sanity'
 import { apiVersion, dataset, projectId } from '../env'
 import type { Product, ProductCategory } from '../../../sanity.types'
 
-// Log configuration in development
-if (process.env.NODE_ENV === 'development') {
-  console.log('Sanity Config:', { projectId, dataset, apiVersion });
-}
-
 export const client = createClient({
   projectId,
   dataset,
   apiVersion,
-  useCdn: false, // Disable CDN for more reliable data fetching
-  token: process.env.SANITY_API_READ_TOKEN, // Add token for authenticated requests
-  perspective: 'published', // Ensure we get published content
+  useCdn: true, // Set to false if statically generating pages, using ISR or tag-based revalidation
 })
 
 export const getAllProducts = async () => {
@@ -23,25 +16,9 @@ export const getAllProducts = async () => {
 }
 
 export const getAllCategories = async () => {
-  const query = `*[_type == "productCategory"]`;
-  try {
-    console.log('Fetching categories with config:', { projectId, dataset });
-    const categories = await client.fetch(query, {}, { 
-      cache: 'no-store',
-      next: { revalidate: 0 } // Disable caching
-    });
-    console.log('Fetched categories:', categories);
-    return categories as ProductCategory[];
-  } catch (error) {
-    console.error('Error fetching categories:', error);
-    console.error('Error details:', {
-      projectId,
-      dataset,
-      apiVersion,
-      hasToken: !!process.env.SANITY_API_READ_TOKEN
-    });
-    return [];
-  }
+  const query = `*[_type == "productCategory"]`
+  const categories = await client.fetch(query)
+  return categories as ProductCategory[];
 }
 
 export const getCategoryBySlug = async (slug: string) => {
