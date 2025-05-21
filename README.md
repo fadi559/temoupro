@@ -1,1 +1,1 @@
-open my temo web Discover it/// 'https://temoupro.vercel.app/'
+[🌐 Visit the Website](https://temoupro.vercel.app/)
