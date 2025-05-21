@@ -89,6 +89,9 @@ const Header2 = ({ user, categorySelector }: HeaderProps) => {
                         <span className='text-2xl font-bold text-black'>DEAL</span>
                     </Link>
 
+
+
+
                     {/* Right Section */}
                     <div className='flex items-center space-x-6'>
                         <HeaderSearchBar />
@@ -116,6 +119,7 @@ const Header2 = ({ user, categorySelector }: HeaderProps) => {
                                 </Link>
                             </div>
                         )}
+
 
                         <button 
                             onClick={() => open()} 
@@ -179,68 +183,79 @@ const Header2 = ({ user, categorySelector }: HeaderProps) => {
                             </Link>
                         </div>
 
-                        <div className='space-y-6 bg-slate-50'>
-                            <div className='flex items-center gap-2'>
-                                <div className='flex-1 bg-gray-50 rounded-lg p-2'>
-                                    <HeaderSearchBar />
-                                </div>
-                                <button 
-                                    onClick={() => setIsMobileMenuOpen(false)}
-                                    className='p-2 text-gray-700 hover:bg-gray-100 rounded-full transition-colors'
-                                >
-                                    <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                                    </svg>
-                                </button>
-                            </div>
-                            
-                            <div className='border-t border-gray-200 pt-6'>
-                                <div className='bg-slate-50'>
-                                    {categorySelector}
-                                </div>
-                            </div>
+     <div className="space-y-6 bg-white rounded-tr-2xl rounded-br-2xl shadow-xl h-full overflow-y-auto px-4 py-6">
+    
+    <div className="flex items-center gap-2">
+        <div className="flex-1">
+            <div className="bg-white rounded-lg px-3 py-2 shadow-sm">
+                <HeaderSearchBar />
+            </div>
+        </div>
+        <button 
+            onClick={() => setIsMobileMenuOpen(false)}
+            className="p-2 text-gray-600 hover:bg-gray-100 rounded-full transition"
+        >
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+            </svg>
+        </button>
+    </div>
 
-                            <Link 
-                                href='#' 
-                                className='block text-gray-700 hover:text-gray-900 font-medium py-3 px-4 hover:bg-gray-50 rounded-lg transition-colors'
-                                onClick={() => setIsMobileMenuOpen(false)}
-                            >
-                                Sale
-                            </Link>
+   
+    <div className="pt-4 border-t border-gray-200">
+        <div className="pt-4">{categorySelector}</div>
+    </div>
 
-                            {user ? (
-                                <div className='space-y-3 pt-4 border-t border-gray-200'>
-                                    <span className='block text-sm text-gray-600 px-4'>{user.email}</span>
-                                    <button
-                                        onClick={async () => {
-                                            await logoutUser();
-                                            router.refresh();
-                                            setIsMobileMenuOpen(false);
-                                        }}
-                                        className='block w-full text-left text-sm font-medium text-gray-700 hover:text-gray-900 py-3 px-4 hover:bg-gray-50 rounded-lg transition-colors'
-                                    >
-                                        Sign Out
-                                    </button>
-                                </div>
-                            ) : (
-                                <div className='space-y-3 pt-4 border-t border-gray-200'>
-                                    <Link 
-                                        href='/auth/sign-in' 
-                                        className='block text-sm font-medium text-gray-700 hover:text-gray-900 py-3 px-4 hover:bg-gray-50 rounded-lg transition-colors'
-                                        onClick={() => setIsMobileMenuOpen(false)}
-                                    >
-                                        Sign In
-                                    </Link>
-                                    <Link 
-                                        href='/auth/sign-up' 
-                                        className='block text-sm font-medium text-gray-700 hover:text-gray-900 py-3 px-4 hover:bg-gray-50 rounded-lg transition-colors'
-                                        onClick={() => setIsMobileMenuOpen(false)}
-                                    >
-                                        Sign Up
-                                    </Link>
-                                </div>
-                            )}
-                        </div>
+    
+    <div className="space-y-3">
+        <Link 
+            href="#" 
+            className="block text-gray-700 hover:text-black font-medium px-4 py-3 rounded-lg hover:bg-gray-100 transition"
+            onClick={() => setIsMobileMenuOpen(false)}
+        >
+            🔥 Sale
+        </Link>
+    </div>
+
+    
+    {user ? (
+        <div className="pt-6 border-t border-gray-200 space-y-2">
+            <span className="block text-sm text-gray-600 px-4">Signed in as <strong>{user.email}</strong></span>
+            <button
+                onClick={async () => {
+                    await logoutUser();
+                    router.refresh();
+                    setIsMobileMenuOpen(false);
+                }}
+                className="block w-full text-left text-sm font-medium text-gray-700 hover:text-black px-4 py-3 hover:bg-gray-100 rounded-lg transition"
+            >
+                🚪 Sign Out
+            </button>
+        </div>
+    ) : (
+        <div className="pt-6 border-t border-gray-200 space-y-2">
+            <Link 
+                href="/auth/sign-in" 
+                className="block text-sm font-medium text-gray-700 hover:text-black px-4 py-3 hover:bg-gray-100 rounded-lg transition"
+                onClick={() => setIsMobileMenuOpen(false)}
+            >
+                🔑 Sign In
+            </Link>
+            <Link 
+                href="/auth/sign-up" 
+                className="block text-sm font-medium text-gray-700 hover:text-black px-4 py-3 hover:bg-gray-100 rounded-lg transition"
+                onClick={() => setIsMobileMenuOpen(false)}
+            >
+                📝 Sign Up
+            </Link>
+        </div>
+    )}
+</div>
+
+
+
+
+                        
                     </div>
                 </div>
             )}

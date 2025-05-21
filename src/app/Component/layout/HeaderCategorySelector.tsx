@@ -32,7 +32,7 @@ const HeaderCategorySelector = () => {
         <div className='relative'>
             <button
                 onClick={() => setIsOpen(!isOpen)}
-                className='text-gray-700 hover:text-gray-900 text-sm font-medium flex items-center gap-1 px-4 py-2.5 bg-gray-50 hover:bg-gray-100 rounded-lg transition-colors'
+                className='text-gray-700 hover:text-gray-900 text-sm font-medium flex items-center gap-1 px-4 py-2.5 bg-white hover:bg-gray-100 rounded-lg transition-colors'
             >
                 Categories
                 <svg

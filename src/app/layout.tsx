@@ -7,6 +7,7 @@ import { SanityLive } from "@/sanity/lib/live";
 
 import HeaderCategorySelector from "./Component/layout/HeaderCategorySelector";
 import Cart from "./Component/cart/Cart";
+import Script from "next/script";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -30,6 +31,18 @@ const RootLayout = async ({
       user={user}
       categorySelector={<HeaderCategorySelector/>}
       />
+      <Script
+      src='https://cloud.umami.is/script.js'
+      strategy='beforeInteractive'
+     data-website-id='ab4c5ba3-56ff-4564-a4ad-badbf6197156'
+
+      
+      
+      
+      />
+
+
+
         {children}
         <Cart/>
         <SanityLive/>
