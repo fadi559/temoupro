@@ -30,6 +30,7 @@ const Header2 = ({ user, categorySelector }: HeaderProps) => {
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
     const [isScrollingUp, setIsScrollingUp] = useState(true);
     const [lastScrollY, setLastScrollY] = useState(0);
+    const [scrollTimeout, setScrollTimeout] = useState<NodeJS.Timeout | null>(null);
 
     const { open, getTotalItems, setLoaded } = useCartStore(
         (state) => ({
@@ -44,12 +45,29 @@ const Header2 = ({ user, categorySelector }: HeaderProps) => {
         setLoaded(true);
         const handleScroll = () => {
             const currentScrollY = window.scrollY;
-            setIsScrollingUp(currentScrollY < lastScrollY);
-            setLastScrollY(currentScrollY);
+            
+            // Clear any existing timeout
+            if (scrollTimeout) {
+                clearTimeout(scrollTimeout);
+            }
+
+            // Set a new timeout
+            const timeout = setTimeout(() => {
+                setIsScrollingUp(currentScrollY < lastScrollY);
+                setLastScrollY(currentScrollY);
+            }, 50); // Small delay to prevent flickering
+
+            setScrollTimeout(timeout);
         };
+
         window.addEventListener('scroll', handleScroll, { passive: true });
-        return () => window.removeEventListener('scroll', handleScroll);
-    }, [setLoaded, lastScrollY]);
+        return () => {
+            window.removeEventListener('scroll', handleScroll);
+            if (scrollTimeout) {
+                clearTimeout(scrollTimeout);
+            }
+        };
+    }, [setLoaded, lastScrollY, scrollTimeout]);
 
     return (
         <header className={`w-full fixed top-0 left-0 z-50 transition-all duration-300 ${isScrollingUp ? 'translate-y-0 bg-white shadow-md' : '-translate-y-full bg-transparent'}`}>
