@@ -31,6 +31,7 @@ const Header2 = ({ user, categorySelector }: HeaderProps) => {
     const [isScrollingUp, setIsScrollingUp] = useState(true);
     const [lastScrollY, setLastScrollY] = useState(0);
     const [scrollTimeout, setScrollTimeout] = useState<NodeJS.Timeout | null>(null);
+    const [isVisible, setIsVisible] = useState(true);
 
     const { open, getTotalItems, setLoaded } = useCartStore(
         (state) => ({
@@ -43,34 +44,29 @@ const Header2 = ({ user, categorySelector }: HeaderProps) => {
 
     useEffect(() => {
         setLoaded(true);
+        let lastScrollY = window.scrollY;
+        let ticking = false;
+
         const handleScroll = () => {
             const currentScrollY = window.scrollY;
             
-            // Clear any existing timeout
-            if (scrollTimeout) {
-                clearTimeout(scrollTimeout);
+            if (!ticking) {
+                window.requestAnimationFrame(() => {
+                    const isScrollingUp = currentScrollY < lastScrollY;
+                    setIsVisible(isScrollingUp || currentScrollY < 10);
+                    lastScrollY = currentScrollY;
+                    ticking = false;
+                });
+                ticking = true;
             }
-
-            // Set a new timeout
-            const timeout = setTimeout(() => {
-                setIsScrollingUp(currentScrollY < lastScrollY);
-                setLastScrollY(currentScrollY);
-            }, 50); // Small delay to prevent flickering
-
-            setScrollTimeout(timeout);
         };
 
         window.addEventListener('scroll', handleScroll, { passive: true });
-        return () => {
-            window.removeEventListener('scroll', handleScroll);
-            if (scrollTimeout) {
-                clearTimeout(scrollTimeout);
-            }
-        };
-    }, [setLoaded, lastScrollY, scrollTimeout]);
+        return () => window.removeEventListener('scroll', handleScroll);
+    }, [setLoaded]);
 
     return (
-        <header className={`w-full fixed top-0 left-0 z-50 transition-all duration-300 ${isScrollingUp ? 'translate-y-0 bg-white shadow-md' : '-translate-y-full bg-transparent'}`}>
+        <header className={`w-full fixed top-0 left-0 z-50 transition-all duration-300 ${isVisible ? 'translate-y-0 bg-white shadow-md' : '-translate-y-full bg-transparent'}`}>
             {/* Announcement Bar - Hidden on mobile */}
             <div className='hidden sm:block'>
                 <AnnouncementBar />
