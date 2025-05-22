@@ -15,7 +15,7 @@ const ProductPage = async ({ params }: { params: Promise<{ id: string }> } ) => 
     const { id } = await params;
     const product = await getProductById(id);
 
-    if(!product.price) {
+    if (!product || !product.price) {
         return <div>Product not found</div>;
     }
 

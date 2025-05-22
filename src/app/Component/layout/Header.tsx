@@ -66,7 +66,7 @@ const Header2 = ({ user, categorySelector }: HeaderProps) => {
     }, [setLoaded]);
 
     return (
-        <header className={`w-full fixed top-0 left-0 z-50 transition-all duration-300 ${isVisible ? 'translate-y-0 bg-white shadow-md' : '-translate-y-full bg-transparent'}`}>
+        <header className={`w-full fixed top-0 left-0 z-40 transition-all duration-300 ${isVisible ? 'translate-y-0 bg-white/95 backdrop-blur-sm shadow-md' : '-translate-y-full bg-transparent'}`}>
             {/* Announcement Bar - Hidden on mobile */}
             <div className='hidden sm:block'>
                 <AnnouncementBar />
@@ -88,9 +88,6 @@ const Header2 = ({ user, categorySelector }: HeaderProps) => {
                     <Link href='/' className='absolute left-1/2 transform -translate-x-1/2'>
                         <span className='text-2xl font-bold text-black'>DEAL</span>
                     </Link>
-
-
-
 
                     {/* Right Section */}
                     <div className='flex items-center space-x-6'>
@@ -119,7 +116,6 @@ const Header2 = ({ user, categorySelector }: HeaderProps) => {
                                 </Link>
                             </div>
                         )}
-
 
                         <button 
                             onClick={() => open()} 
