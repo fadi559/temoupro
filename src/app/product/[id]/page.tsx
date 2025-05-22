@@ -61,26 +61,24 @@ const ProductPage = async ({ params }: { params: Promise<{ id: string }> } ) => 
             </div>
         </div>
 
-        {/* Guarantee Items */}
         <div className='bg-gradient-to-r from-yellow-500/10 to-yellow-600/10 py-4'>
-            <div className='container mx-auto'>
-                <div className='flex flex-wrap items-center justify-center gap-6 text-sm'>
-                    <div className='flex items-center gap-2'>
-                        <span className='text-yellow-600 text-xl'>🚚</span>
-                        <span className='font-medium'>Free Express Shipping</span>
-                    </div>
-                    <div className='flex items-center gap-2'>
-                        <span className='text-yellow-600 text-xl'>✨</span>
-                        <span className='font-medium'>Satisfaction Guaranteed</span>
-                    </div>
-                    <div className='flex items-center gap-2'>
-                        <span className='text-yellow-600 text-xl'>🔒</span>
-                        <span className='font-medium'>Secure Checkout</span>
-                    </div>
-                </div>
+    <div className='container mx-auto'>
+        <div className='flex flex-wrap items-center justify-center gap-6 text-sm'>
+            <div className='flex items-center gap-2'>
+                <span className='text-black text-xl'>🚚</span>
+                <span className='font-medium text-black'>Free Express Shipping</span>
+            </div>
+            <div className='flex items-center gap-2'>
+                <span className='text-black text-xl'>✨</span>
+                <span className='font-medium text-black'>Satisfaction Guaranteed</span>
+            </div>
+            <div className='flex items-center gap-2'>
+                <span className='text-black text-xl'>🔒</span>
+                <span className='font-medium text-black'>Secure Checkout</span>
             </div>
         </div>
-
+    </div>
+</div>
         {/* Product Details */}
         <div className='container mx-auto py-8'>
             <div className='grid grid-cols-1 md:grid-cols-2 gap-8'>
