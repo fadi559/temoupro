@@ -11,6 +11,9 @@ import Link from 'next/link';
 import React from 'react'
 import AddToCartButton from '@/app/Component/products/AddToCartButton';
 
+
+
+
 const ProductPage = async ({ params }: { params: Promise<{ id: string }> } ) => {
     const { id } = await params;
     const product = await getProductById(id);
