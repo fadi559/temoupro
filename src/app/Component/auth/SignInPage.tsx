@@ -33,7 +33,7 @@ const SignInPage22 = ({ action }: SignInProps) => {
     return (
         <form
             action={handleSubmit}
-            className="max-w-md mx-auto my-16 p-8 bg-white rounded-2xl shadow-lg border border-gray-100"
+            className="max-w-md mx-auto my-32 p-8 bg-white rounded-2xl shadow-lg border border-gray-100"
         >
             <h1 className="text-3xl font-bold text-black text-center mb-2">Welcome Back!</h1>
             <p className="text-center text-sm text-rose-600 font-semibold mb-1">🔥 MEMBER EXCLUSIVE 🔥</p>
